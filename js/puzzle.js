@@ -15,7 +15,7 @@ function changePlace(id, tablePosID){
     else if ([0, 3, 6].includes(parseInt(tablePosID[tablePosID.length-1]))) { arr = [+3, +1, -3]; }
     else { arr = [+3, +1, -3, -1]; }
 
-    for (i = 0; i < tableItems.length; i++){
+    for (i = 0; i < arr.length; i++){
         console.log(tablePosID[tablePosID.length-1] + " + " + arr[i] + " = " + id[1])
         if (parseInt(tablePosID[tablePosID.length-1]) + parseInt(arr[i]) == parseInt(id[1])) { return true; }
     }
