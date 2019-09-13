@@ -1,2 +1,2 @@
-# 8-ball-game
-8 Ball Game as an Artificial Intelligence work
+# 8-puzzle-game
+8 puzzle Game as an Artificial Intelligence work
