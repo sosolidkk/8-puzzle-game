@@ -8,6 +8,8 @@ function getTable(value){
         }
 }
 
+
+
 function changePlace(id, tablePosID){
     let arr = []
 
