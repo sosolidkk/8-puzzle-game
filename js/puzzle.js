@@ -18,11 +18,13 @@ function changePlace(id, tablePosID){
     else { arr = [+3, +1, -3, -1]; }
 
     for (i = 0; i < tableItems.length; i++){
-        console.log(tablePosID[tablePosID.length-1] + " + " + arr[i] + " = " + id[1])
+        //console.log(tablePosID[tablePosID.length-1] + " + " + arr[i] + " = " + id[1])
         if (parseInt(tablePosID[tablePosID.length-1]) + parseInt(arr[i]) == parseInt(id[1])) { return true; }
     }
     return false;
-}
+}  
+
+
 
 
 function pushed(id){
