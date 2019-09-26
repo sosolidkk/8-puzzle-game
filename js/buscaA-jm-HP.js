@@ -148,7 +148,7 @@ function visitado(no) {
     return false
 }
 
-function criarEstados() {
+function criarEstados(pai, valores) {
 
     while (true) {
 
@@ -174,9 +174,9 @@ function criarEstados() {
                 }
             }
         }
-
+mudarTabela(fronteira[0])
 fronteira.shift()
-        mudarTabela(fronteira[0])
+        
         fronteira.sort((a, b) => {
             return a.custo - b.custo
         })
@@ -217,19 +217,19 @@ function buscaAEstrela(valores) {
     console.log(no.valores[0], no.valores[1], no.valores[2])
     console.log(no.valores[3], no.valores[4], no.valores[5])
     console.log(no.valores[6], no.valores[7], no.valores[8])
-    criarEstados()
+    criarEstados(no, valores)
 
 }
 
 function iniciar() {
 
     inicio = new Date()
-/*
+  /*
     let valores = []
     for (i = 0; i < tableItems.length; i++) {
         valores.push(document.getElementById(tableItems[i]).firstChild.data)
-    }
-     */
+    }*/
+   
   let valores = ["8", "7", "6", "5", "4", "3", "2", "1", " "] 
     buscaAEstrela(valores)
 }
