@@ -1,25 +1,36 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Jogo dos 8</title>
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/puzzle.css">
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/puzzle.js"></script>
+    <title>Jogo dos 8</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/puzzle.css">
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
 </head>
+
 <body>
     <center>
-        <h1><span style="color:#fc4f3f;">Jogo dos 8</span><br/></h1>
+        <h1><span style="color:#fc4f3f;">Jogo dos 8</span><br /></h1>
         <div id="puzzle" class="container">
-            <button id="r0" class="btn btn-primary" onclick="pushed(this.id)" style="width: 75px; height: 75px; font-size: 30px; color: #FFFFFF; margin: 5px;">1 </button>
-            <button id="r1" class="btn btn-primary" onclick="pushed(this.id)" style="width: 75px; height: 75px; font-size: 30px; color: #FFFFFF; margin: 5px;">2</button>
-            <button id="r2" class="btn btn-primary" onclick="pushed(this.id)" style="width: 75px; height: 75px; font-size: 30px; color: #FFFFFF; margin: 5px;">3</button><br/>
-            <button id="r3" class="btn btn-primary" onclick="pushed(this.id)" style="width: 75px; height: 75px; font-size: 30px; color: #FFFFFF; margin: 5px;">4</button>
-            <button id="r4" class="btn btn-primary" onclick="pushed(this.id)" style="width: 75px; height: 75px; font-size: 30px; color: #FFFFFF; margin: 5px;">5</button>
-            <button id="r5" class="btn btn-primary" onclick="pushed(this.id)" style="width: 75px; height: 75px; font-size: 30px; color: #FFFFFF; margin: 5px;">6</button><br/>
-            <button id="r6" class="btn btn-primary" onclick="pushed(this.id)" style="width: 75px; height: 75px; font-size: 30px; color: #FFFFFF; margin: 5px;">7</button>
-            <button id="r7" class="btn btn-primary" onclick="pushed(this.id)" style="width: 75px; height: 75px; font-size: 30px; color: #FFFFFF; margin: 5px;">8</button>
-            <button id="r8" class="btn btn-primary" onclick="pushed(this.id)" style="width: 75px; height: 75px; font-size: 30px; color: #FFFFFF; margin: 5px;"> </button>
+            <button id="r0" class="btn btn-primary" onclick="pushed(this.id)"
+                style="width: 75px; height: 75px; font-size: 30px; color: #FFFFFF; margin: 5px;">1</button>
+            <button id="r1" class="btn btn-primary" onclick="pushed(this.id)"
+                style="width: 75px; height: 75px; font-size: 30px; color: #FFFFFF; margin: 5px;">2</button>
+            <button id="r2" class="btn btn-primary" onclick="pushed(this.id)"
+                style="width: 75px; height: 75px; font-size: 30px; color: #FFFFFF; margin: 5px;">3</button><br />
+            <button id="r3" class="btn btn-primary" onclick="pushed(this.id)"
+                style="width: 75px; height: 75px; font-size: 30px; color: #FFFFFF; margin: 5px;">4</button>
+            <button id="r4" class="btn btn-primary" onclick="pushed(this.id)"
+                style="width: 75px; height: 75px; font-size: 30px; color: #FFFFFF; margin: 5px;">5</button>
+            <button id="r5" class="btn btn-primary" onclick="pushed(this.id)"
+                style="width: 75px; height: 75px; font-size: 30px; color: #FFFFFF; margin: 5px;">6</button><br />
+            <button id="r6" class="btn btn-primary" onclick="pushed(this.id)"
+                style="width: 75px; height: 75px; font-size: 30px; color: #FFFFFF; margin: 5px;">7</button>
+            <button id="r7" class="btn btn-primary" onclick="pushed(this.id)"
+                style="width: 75px; height: 75px; font-size: 30px; color: #FFFFFF; margin: 5px;">8</button>
+            <button id="r8" class="btn btn-primary" onclick="pushed(this.id)"
+                style="width: 75px; height: 75px; font-size: 30px; color: #FFFFFF; margin: 5px;"> </button>
         </div>
 
         <span style="color: #3377CC;">Algoritmos:</span>
@@ -30,6 +41,8 @@
             <option value="gulosa">Gulosa</option>
             <option value="a*">A*</option>
         </select>
+
+        <button type="button" class="btn btn-primary" onclick="iniciar()">GO</button>
         <h4>
             <br><span style="color: #FC4F3F;">Feito por:</span>
             <br><span style="color: #3377CC;">João Pedro</span>
@@ -37,5 +50,9 @@
             <br><span style="color: #3377CC;">Lucas Rodrigues</span>
         </h4>
     </center>
+
+    <script type="text/javascript" src="js/puzzle.js"></script>
+    <script type="text/javascript" src="js/buscaA.js"></script>
 </body>
+
 </html>

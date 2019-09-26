@@ -1,4 +1,12 @@
 let tableItems = ["r0","r1","r2","r3","r4","r5","r6","r7","r8"];
+class Estado {
+    constructor(pai = null, filhos = [], custo = 0, valores = null) {
+        this.pai = pai
+        this.filhos = filhos
+        this.custo = custo
+        this.valores = valores
+    }
+}
 
 function getTable(value){
     for (i = 0; i < tableItems.length; i++) {
@@ -17,12 +25,17 @@ function changePlace(id, tablePosID){
     else if ([0, 3, 6].includes(parseInt(tablePosID[tablePosID.length-1]))) { arr = [+3, +1, -3]; }
     else { arr = [+3, +1, -3, -1]; }
 
+
     for (i = 0; i < arr.length; i++){
         console.log(tablePosID[tablePosID.length-1] + " + " + arr[i] + " = " + id[1])
+
         if (parseInt(tablePosID[tablePosID.length-1]) + parseInt(arr[i]) == parseInt(id[1])) { return true; }
     }
     return false;
-}
+}  
+
+
+
 
 
 function pushed(id){
@@ -37,3 +50,28 @@ function pushed(id){
         }
     }
 }
+
+
+
+function iniciar() {
+
+   
+    
+    let a = document.querySelector("#algoritmos").value
+    let valores = []
+    for (i = 0; i < tableItems.length; i++) {
+        valores.push(document.getElementById(tableItems[i]).firstChild.data)
+    }
+   switch (a) {
+       case "largura":
+           
+           break;
+       case "a*":
+           buscaAEstrela(valores)
+           break;
+       default:
+           break;
+   }
+ 
+}
+
