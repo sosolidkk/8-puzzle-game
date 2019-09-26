@@ -4,14 +4,6 @@ let visitados = []
 let inicio = null
 let fim = null
 let nosGerados = 1
-class Estado {
-    constructor(pai = null, filhos = [], custo = 0, valores = null) {
-        this.pai = pai
-        this.filhos = filhos
-        this.custo = custo
-        this.valores = valores
-    }
-}
 
 function verificarSolucao(no, sol) {
     let s = 0
@@ -120,23 +112,14 @@ function mostrarSolucao(no) {
         console.log(e.valores[0], e.valores[1], e.valores[2])
         console.log(e.valores[3], e.valores[4], e.valores[5])
         console.log(e.valores[6], e.valores[7], e.valores[8])
+        mudarTabela(e)
     })
+    mudarTabela(fronteira[0])
     fronteira = []
     visitados = []
 
 }
 
-function repetido(pai, no) {
-    if (pai == null) {
-        return false
-    }
-    if (verificarSolucao(pai, no.valores)) {
-        return true
-    } else {
-        return repetido(pai.pai, no)
-    }
-
-}
 
 function visitado(no) {
     for (let i = 0; i < visitados.length; i++) {
@@ -168,15 +151,15 @@ function criarEstados() {
                 no = new Estado(x, null, null, vet)
                 nosGerados++
                 no.custo = (x.custo + 1) + verificarCustoGeral(vet)
-                //pai.filhos.push(no)
                 if (visitado(no) == false) {
                     fronteira.push(no)
                 }
             }
         }
 
-fronteira.shift()
-        mudarTabela(fronteira[0])
+
+        fronteira.shift()
+       
         fronteira.sort((a, b) => {
             return a.custo - b.custo
         })
@@ -186,7 +169,7 @@ fronteira.shift()
         console.log(e.valores,e.custo)
     })    */
 
-        
+
         let e = fronteira[0]
         /* console.log("no expandido:")
              console.log(e.valores[0], e.valores[1], e.valores[2])
@@ -207,6 +190,7 @@ fronteira.shift()
 }
 
 function buscaAEstrela(valores) {
+    inicio = new Date()
     let no = new Estado(null, [], 0, valores) //estado inicial
     fronteira.push(no)
     if (verificarSolucao(no, solucao)) {
@@ -221,18 +205,21 @@ function buscaAEstrela(valores) {
 
 }
 
-function iniciar() {
+/* function iniciar() {
 
     inicio = new Date()
-/*
+
+
+    console.log(a)
     let valores = []
     for (i = 0; i < tableItems.length; i++) {
         valores.push(document.getElementById(tableItems[i]).firstChild.data)
     }
-     */
+
   let valores = ["8", "7", "6", "5", "4", "3", "2", "1", " "] 
+    
     buscaAEstrela(valores)
 }
-
+ */
 
 
