@@ -107,3 +107,5 @@ function shuffleBoard() {
     console.log(array)
     return array;
 }
+
+// -------------------------------------------------------------------------
