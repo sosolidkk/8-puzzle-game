@@ -15,10 +15,10 @@ class Estado {
 
 function getTable(value){
     for (i = 0; i < tableItems.length; i++) {
-            if(document.getElementById(tableItems[i]).firstChild.data == value){
-                return tableItems[i];
-            }
+        if(document.getElementById(tableItems[i]).firstChild.data == value){
+            return tableItems[i];
         }
+    }
 }
 
 function getAllTableitems() {
@@ -73,10 +73,13 @@ function iniciar() {
 }
 
 customInputButton.addEventListener("click", function() {
-    let game = prompt("Insert a state: 1;2;3;4;5;6;7;8;;");
-    game = game.split(";");
-    if (game.length < 9) { alert("Não foram inseridos todos os estados."); }
-    else { reDrawBoard(game); }
+    let game = prompt("Insert a state: 1;2;3;4;5;6;7;8; ;");
+    if (game == null) return;
+    else {
+        game = game.split(";");
+        if (game.length < 9) { alert("Não foram inseridos todos os estados."); }
+        else { reDrawBoard(game); }
+    }
 })
 
 randomizeBoard.addEventListener("click", function() {
@@ -101,5 +104,6 @@ function shuffleBoard() {
       array[currentIndex] = array[randomIndex];
       array[randomIndex] = temporaryValue;
     }
+    console.log(array)
     return array;
 }
