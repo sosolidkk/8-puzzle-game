@@ -140,31 +140,34 @@ Array.prototype.equals = function (array) {
     }
     return true;
 }
+
 // Hide method from for-in loops
 Object.defineProperty(Array.prototype, "equals", {enumerable: false});
 
-// function depthSearch(values) {
-//   let k =0;
-//     current = new Estado(null, [], 0, values);
-//     solved = new Estado(null, [], 0, [1, 2, 3, 4, 5, 6, 7, 8, " "]);
+function depthSearch(values) {
+    current = new Estado(null, [], 0, values);
+    solved = new Estado(null, [], 0, ["1", "2", "3", "4", "5", "6", "7", "8", " "]);
 
-//     front = [current.valores]
-//     seen = []
+    front = [current]
+    seen = []
 
-//     while ((typeof front !== 'undefined' && front.length > 0)) {
-//       k++;
-//         node = front.pop();
-//         node.filhos = findChildren(node);
-//         seen.push(node);
+    while(front.length > 0) {
+        let node = front.pop()
+        seen.push(node);
 
-//         for(i = 0; i < node.filhos.length; i++) {
-//             if(!hasSubArray(seen, node.filhos[i].valores) && !hasSubArray(front, node.filhos[i].valores)) {
-//                 if(solved.valores.equals(node.filhos[i].valores)) { console.log(node.filhos[i].valores); return true;}
-//                 else front.push(node.filhos[i].valores)
-//             }
-//         }
-//     }
-// }
+        if(solved.valores.equals(node.valores)) { inspectResult(node, seen); return true; }
+        if(checkPrice(node) < 13) {
+            node.filhos = findChildren(node);
+
+            for(i = 0; i < node.filhos.length; i++) {
+                if(!hasSubArray(seen, node.filhos[i].valores) && !hasSubArray(front, node.filhos[i].valores)) {
+                    if(solved.valores.equals(node.filhos[i].valores)) { inspectResult(node.filhos[i], seen); return true; }
+                    else front.push(node.filhos[i]);
+                }
+            }
+        }
+    }
+}
 
 function breadthSearch(values) {
     current = new Estado(null, [], 0, values);
@@ -182,22 +185,30 @@ function breadthSearch(values) {
 
         for(i = 0; i < node.filhos.length; i++) {
             if(!hasSubArray(seen, node.filhos[i].valores) && !hasSubArray(front, node.filhos[i].valores)) {
-                if(solved.valores.equals(node.filhos[i].valores)) { inspectResult(node.filhos[i], seen); return true;}
-                else front.push(node.filhos[i])
+                if(solved.valores.equals(node.filhos[i].valores)) { inspectResult(node.filhos[i], seen); return true; }
+                else front.push(node.filhos[i]);
             }
         }
     }
 }
 
 function inspectResult(node, seen) {
-  console.log(node.valores);
+  console.log("Price: ", checkPrice(node));
   reDrawBoard(node.valores);
-  while(true) {
-    if(node.pai == null) break;
 
-    node = findFather(node, seen);
+  while(true) {
     console.log(node.valores);
+    if(node.pai == null) break;
+    else node = findFather(node, seen);
   }
+}
+
+function checkPrice(node) {
+    if (node.pai != null) {
+        return 1 + checkPrice(node.pai)
+    } else {
+        return 0
+    }
 }
 
 function findFather(node, seen) {
