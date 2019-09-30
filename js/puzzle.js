@@ -67,6 +67,7 @@ function iniciar() {
     switch (a) {
         case "profundidade": console.log(depthSearch(values)); break;
         case "largura": console.log(breadthSearch(values)); break;
+        case "gulosa" : buscaGulosa(values);break;
         case "a*": buscaAEstrela(values); break;
         default: break;
    }

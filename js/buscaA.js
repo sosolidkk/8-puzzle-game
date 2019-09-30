@@ -107,14 +107,14 @@ function mostrarSolucao(no) {
     console.log("tempo:", fim.getTime() - inicio.getTime())
     console.log("n nos na fronteira:", fronteira.length)
     console.log("nos gerados:", nosGerados)
-    visitados.forEach(e => {
+    /* visitados.forEach(e => {
         console.log("no expandido:")
         console.log(e.valores[0], e.valores[1], e.valores[2])
         console.log(e.valores[3], e.valores[4], e.valores[5])
         console.log(e.valores[6], e.valores[7], e.valores[8])
         mudarTabela(e)
     })
-    mudarTabela(fronteira[0])
+    mudarTabela(fronteira[0]) */
     fronteira = []
     visitados = []
 
@@ -132,16 +132,18 @@ function visitado(no) {
 }
 
 function criarEstados() {
-
+    let x
+    let vet = []
+    let aux
+    let no
+    let indice
     while (true) {
 
-        let x = fronteira[0]
+        x = fronteira[0]
 
         visitados.push(x)
-        let vet = []
-        let aux
-        let no
-        let indice = x.valores.indexOf(" ") //indice da posicao vazia
+
+        indice = x.valores.indexOf(" ") //indice da posicao vazia
         for (let i = 0; i < 9; i++) {
             vet = x.valores.slice()
             if (change(i, indice)) {
@@ -159,7 +161,7 @@ function criarEstados() {
 
 
         fronteira.shift()
-       
+
         fronteira.sort((a, b) => {
             return a.custo - b.custo
         })
@@ -190,6 +192,8 @@ function criarEstados() {
 }
 
 function buscaAEstrela(valores) {
+    fronteira = []
+    visitados = []
     inicio = new Date()
     let no = new Estado(null, [], 0, valores) //estado inicial
     fronteira.push(no)
@@ -204,22 +208,5 @@ function buscaAEstrela(valores) {
     criarEstados()
 
 }
-
-/* function iniciar() {
-
-    inicio = new Date()
-
-
-    console.log(a)
-    let valores = []
-    for (i = 0; i < tableItems.length; i++) {
-        valores.push(document.getElementById(tableItems[i]).firstChild.data)
-    }
-
-  let valores = ["8", "7", "6", "5", "4", "3", "2", "1", " "] 
-    
-    buscaAEstrela(valores)
-}
- */
 
 
