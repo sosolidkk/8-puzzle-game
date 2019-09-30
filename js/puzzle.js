@@ -37,8 +37,7 @@ function changePlace(id, tablePosID){
     else if ([0, 3, 6].includes(parseInt(tablePosID[tablePosID.length-1]))) { arr = [+3, +1, -3]; }
     else { arr = [+3, +1, -3, -1]; }
 
-    for (i = 0; i < arr.length; i++){
-        console.log(tablePosID[tablePosID.length-1] + " + " + arr[i] + " = " + id[1])
+    for (i = 0; i < arr.length; i++) {
         if (parseInt(tablePosID[tablePosID.length-1]) + parseInt(arr[i]) == parseInt(id[1])) { return true; }
     }
     return false;
@@ -59,15 +58,16 @@ function pushed(id){
 
 function iniciar() {
     let a = document.querySelector("#algoritmos").value
-    let valores = []
+    let values = []
 
     for (i = 0; i < tableItems.length; i++) {
-        valores.push(document.getElementById(tableItems[i]).firstChild.data)
+        values.push(document.getElementById(tableItems[i]).firstChild.data)
     }
+
     switch (a) {
         case "profundidade": break;
-        case "largura": break;
-        case "a*": buscaAEstrela(valores); break;
+        case "largura": console.log(breadthSearch(values)); break;
+        case "a*": buscaAEstrela(values); break;
         default: break;
    }
 }
@@ -107,5 +107,3 @@ function shuffleBoard() {
     console.log(array)
     return array;
 }
-
-// -------------------------------------------------------------------------
