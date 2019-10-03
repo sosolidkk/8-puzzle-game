@@ -5,12 +5,12 @@ let customInputButton = document.getElementById("customInput");
 let randomizeBoard = document.getElementById("randomizeBoard");
 
 class Estado {
-    constructor(pai = null, filhos = [], custo = 0, valores = null,nivel) {
+    constructor(pai = null, filhos = [], custo = 0, valores = null, nivel=0) {
         this.pai = pai
         this.filhos = filhos
         this.custo = custo
         this.valores = valores
-        this.nivel=nivel
+        this.nivel = nivel
     }
 }
 
