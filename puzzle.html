@@ -13,7 +13,8 @@
 </head>
 <body>
     <center>
-        <h1><span style="color:#2864A7;">Jogo dos 8 (8 Puzzle game)</span><br /></h1>
+        <h1><span style="color:#2864A7;">Jogo dos 8</span><br /></h1>
+        <h4><span style="color:#2864A7;">8 puzzle game</span><br /></h4>
         <div id="puzzle" class="container">
             <button id="r0" class="btn btn-primary" onclick="pushed(this.id)"
                 style="width: 75px; height: 75px; font-size: 30px; margin: 5px;">1</button>
@@ -37,38 +38,38 @@
         <div class="info-panel" style="width:250px; left:0; bottom:0; overflow-y:auto; border:1px solid #2864A7;">
             <div class="menu-panel" style="background: #2864A7; color: #fff; font-weight: bold; text-align: center; line-height: 200%;">Entrada (Game input)</div>
             <div class="menu-item" style="margin-top: 10px; margin-bottom: 10px;">
-                <button id="customInput" style="border:1px solid #2864A7;">Entrada</button>
-                <button id="randomizeBoard" style="border:1px solid #2864A7;">Randomizar</button>
+                <button id="customInput" style="border:1px solid #2864A7;" title="Input">Entrada</button>
+                <button id="randomizeBoard" style="border:1px solid #2864A7;" title="Random">Randomizar</button>
             </div>
         </div>
         <div class="info-panel" style="width:250px; left:0; bottom:0; overflow-y:auto; border:1px solid #2864A7;">
             <div class="menu-panel" style="background: #2864A7; color: #fff; font-weight: bold; text-align: center; line-height: 200%;">Algoritmos (Algorithms)</div>
             <div class="menu-item" style="margin-top: 10px; margin-bottom: 10px;">
-                <select id="algoritmos" class="form-control" style="width: 100px; height: 40; margin: 10px; border:1px solid #2864A7;">
+                <select id="algoritmos" class="form-control" title="Select" style="width: 100px; height: 40; margin: 10px; border:1px solid #2864A7;">
                     <option value="selecionar">Selecione</option>
                     <option value="largura">Largura</option>
                     <option value="profundidade">Profundidade</option>
                     <option value="gulosa">Gulosa</option>
                     <option value="a*">A*</option>
                 </select>
-                <button type="button" style="border:1px solid #2864A7;" onclick="iniciar()">Resolver (Solve)</button>
+                <button type="button" style="border:1px solid #2864A7;" title="Solve" onclick="iniciar()">Resolver</button>
             </div>
         </div>
         <div class="info-panel" style="width:250px; left:0; bottom:0; overflow-y:auto; border:1px solid #2864A7;">
             <div class="menu-panel" style="background: #2864A7; color: #fff; font-weight: bold; text-align: center; line-height: 200%;">Resultado (Game result)</div>
             <div class="menu-item" style="margin-top: 10px; margin-bottom: 10px;">
-                <label id="result"></label>
+                <label id="resultPrice"></label><br>
+                <label id="resultNode"></label><br>
+                <label id="resultTime"></label>
             </div>
         </div>
         <h4>
-            <br><span style="color: #000;">Feito por (made by):</span>
+            <span style="color: #000;">Feito por (made by):</span>
             <br><span style="color: #2864A7;">João Pedro</span>
             <br><span style="color: #2864A7;">João Marcos</span>
             <br><span style="color: #2864A7;">Lucas Rodrigues</span>
         </h4>
     </center>
-    <div id="sigma-container"></div>
-
     <script type="text/javascript" scr="js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="js/puzzle.js"></script>
     <script type="text/javascript" src="js/buscaA.js"></script>

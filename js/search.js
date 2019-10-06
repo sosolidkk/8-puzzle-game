@@ -148,20 +148,19 @@ function depthSearch(values) {
     current = new Estado(null, [], 0, values);
     solved = new Estado(null, [], 0, ["1", "2", "3", "4", "5", "6", "7", "8", " "]);
 
-    front = [current]
-    seen = []
+    let openNodes = [], front = [current], seen = []
 
     while(front.length > 0) {
         let node = front.pop()
         seen.push(node);
 
-        if(solved.valores.equals(node.valores)) { inspectResult(node, seen); return true; }
-        if(checkPrice(node) < 13) {
+        if(solved.valores.equals(node.valores)) { inspectResult(node, seen, 0); return true; }
+        if(checkPrice(node) < 20) {
             node.filhos = findChildren(node);
 
             for(i = 0; i < node.filhos.length; i++) {
                 if(!hasSubArray(seen, node.filhos[i].valores) && !hasSubArray(front, node.filhos[i].valores)) {
-                    if(solved.valores.equals(node.filhos[i].valores)) { inspectResult(node.filhos[i], seen); return true; }
+                    if(solved.valores.equals(node.filhos[i].valores)) { inspectResult(node.filhos[i], seen, 0); return true; }
                     else front.push(node.filhos[i]);
                 }
             }
@@ -173,27 +172,26 @@ function breadthSearch(values) {
     current = new Estado(null, [], 0, values);
     solved = new Estado(null, [], 0, ["1", "2", "3", "4", "5", "6", "7", "8", " "]);
 
-    front = [current]
-    seen = []
+    let openNodes = [], front = [current], seen = []
 
     while((front.length > 0)) {
         let node = front.shift();
         seen.push(node);
 
-        if(solved.valores.equals(node.valores)) { inspectResult(node, seen); return true; }
+        if(solved.valores.equals(node.valores)) { inspectResult(node, seen, 0); return true; }
         node.filhos = findChildren(node);
 
         for(i = 0; i < node.filhos.length; i++) {
             if(!hasSubArray(seen, node.filhos[i].valores) && !hasSubArray(front, node.filhos[i].valores)) {
-                if(solved.valores.equals(node.filhos[i].valores)) { inspectResult(node.filhos[i], seen); return true; }
+                if(solved.valores.equals(node.filhos[i].valores)) { inspectResult(node.filhos[i], seen, 0); return true; }
                 else front.push(node.filhos[i]);
             }
         }
     }
 }
 
-function inspectResult(node, seen) {
-  console.log("Price: ", checkPrice(node));
+function inspectResult(node, seen, time) {
+  drawResult(node, time);
   reDrawBoard(node.valores);
 
   while(true) {
@@ -201,6 +199,13 @@ function inspectResult(node, seen) {
     if(node.pai == null) break;
     else node = findFather(node, seen);
   }
+}
+
+function drawResult(node, time) {
+    document.getElementById("resultPrice").innerHTML = `Custo: ${checkPrice(node)}`;
+    document.getElementById("resultNode").innerHTML = `Nós: ${checkPrice(node)}`;
+    document.getElementById("resultTime").innerHTML = `Tempo:  ${time} ms`;
+
 }
 
 function checkPrice(node) {
