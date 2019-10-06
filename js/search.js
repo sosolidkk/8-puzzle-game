@@ -1,3 +1,38 @@
+// Warn if overriding existing method
+if(Array.prototype.equals)
+    console.warn("Overriding existing Array.prototype.equals. Possible causes: New API defines the method, there's a framework conflict or you've got double inclusions in your code.");
+// attach the .equals method to Array's prototype to call it on any array
+Array.prototype.equals = function (array) {
+    // if the other array is a falsy value, return
+    if (!array) return false;
+
+    // compare lengths - can save a lot of time
+    if (this.length != array.length) return false;
+
+    for (var i = 0, l=this.length; i < l; i++) {
+        // Check if we have nested arrays
+        if (this[i] instanceof Array && array[i] instanceof Array) {
+            // recurse into the nested arrays
+            if (!this[i].equals(array[i])) return false;
+        }
+        // Warning - two different object instances will never be equal: {x:20} != {x:20}
+        else if (this[i] != array[i]) { return false; }
+    }
+    return true;
+}
+
+// Hide method from for-in loops
+Object.defineProperty(Array.prototype, "equals", {enumerable: false});
+
+// Suffle array
+function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
 function chunk(array, size) {
   const chunked_arr = [];
   let index = 0;
@@ -118,49 +153,26 @@ function hasSubArray(master, sub) {
     return sub.every((i => v => i = master.indexOf(v, i) + 1)(0));
 }
 
-// Warn if overriding existing method
-if(Array.prototype.equals)
-    console.warn("Overriding existing Array.prototype.equals. Possible causes: New API defines the method, there's a framework conflict or you've got double inclusions in your code.");
-// attach the .equals method to Array's prototype to call it on any array
-Array.prototype.equals = function (array) {
-    // if the other array is a falsy value, return
-    if (!array) return false;
-
-    // compare lengths - can save a lot of time
-    if (this.length != array.length) return false;
-
-    for (var i = 0, l=this.length; i < l; i++) {
-        // Check if we have nested arrays
-        if (this[i] instanceof Array && array[i] instanceof Array) {
-            // recurse into the nested arrays
-            if (!this[i].equals(array[i])) return false;
-        }
-        // Warning - two different object instances will never be equal: {x:20} != {x:20}
-        else if (this[i] != array[i]) { return false; }
-    }
-    return true;
-}
-
-// Hide method from for-in loops
-Object.defineProperty(Array.prototype, "equals", {enumerable: false});
-
-function depthSearch(values) {
+function depthSearch(values, startTime) {
     current = new Estado(null, [], 0, values);
     solved = new Estado(null, [], 0, ["1", "2", "3", "4", "5", "6", "7", "8", " "]);
 
-    let openNodes = [], front = [current], seen = []
+    let totalNodes = 0, front = [current], seen = []
 
     while(front.length > 0) {
         let node = front.pop()
+        console.log(front.length)
         seen.push(node);
 
         if(solved.valores.equals(node.valores)) { inspectResult(node, seen, 0); return true; }
-        if(checkPrice(node) < 20) {
+        if(checkDepth(node) < 15) {
             node.filhos = findChildren(node);
+            shuffle(node.filhos)
 
             for(i = 0; i < node.filhos.length; i++) {
+                totalNodes += 1;
                 if(!hasSubArray(seen, node.filhos[i].valores) && !hasSubArray(front, node.filhos[i].valores)) {
-                    if(solved.valores.equals(node.filhos[i].valores)) { inspectResult(node.filhos[i], seen, 0); return true; }
+                    if(solved.valores.equals(node.filhos[i].valores)) { inspectResult(node.filhos[i], seen, startTime, totalNodes); return true; }
                     else front.push(node.filhos[i]);
                 }
             }
@@ -168,11 +180,11 @@ function depthSearch(values) {
     }
 }
 
-function breadthSearch(values) {
+function breadthSearch(values, startTime) {
     current = new Estado(null, [], 0, values);
     solved = new Estado(null, [], 0, ["1", "2", "3", "4", "5", "6", "7", "8", " "]);
 
-    let openNodes = [], front = [current], seen = []
+    let totalNodes = 0, front = [current], seen = []
 
     while((front.length > 0)) {
         let node = front.shift();
@@ -182,16 +194,17 @@ function breadthSearch(values) {
         node.filhos = findChildren(node);
 
         for(i = 0; i < node.filhos.length; i++) {
+            totalNodes += 1;
             if(!hasSubArray(seen, node.filhos[i].valores) && !hasSubArray(front, node.filhos[i].valores)) {
-                if(solved.valores.equals(node.filhos[i].valores)) { inspectResult(node.filhos[i], seen, 0); return true; }
+                if(solved.valores.equals(node.filhos[i].valores)) { inspectResult(node.filhos[i], seen, startTime, totalNodes); return true; }
                 else front.push(node.filhos[i]);
             }
         }
     }
 }
 
-function inspectResult(node, seen, time) {
-  drawResult(node, time);
+function inspectResult(node, seen, startTime, totalNodes) {
+  drawResult(node, startTime, totalNodes);
   reDrawBoard(node.valores);
 
   while(true) {
@@ -201,16 +214,16 @@ function inspectResult(node, seen, time) {
   }
 }
 
-function drawResult(node, time) {
-    document.getElementById("resultPrice").innerHTML = `Custo: ${checkPrice(node)}`;
-    document.getElementById("resultNode").innerHTML = `Nós: ${checkPrice(node)}`;
-    document.getElementById("resultTime").innerHTML = `Tempo:  ${time} ms`;
+function drawResult(node, startTime, totalNodes) {
+    document.getElementById("resultPrice").innerHTML = `Custo(Nivel): ${checkDepth(node)}`;
+    document.getElementById("resultNode").innerHTML = `Nós: ${totalNodes} + 1 (root)`;
+    document.getElementById("resultTime").innerHTML = `Tempo:  ${((performance.now()-startTime)/1000).toFixed(4)} s`;
 
 }
 
-function checkPrice(node) {
+function checkDepth(node) {
     if (node.pai != null) {
-        return 1 + checkPrice(node.pai)
+        return 1 + checkDepth(node.pai)
     } else {
         return 0
     }
