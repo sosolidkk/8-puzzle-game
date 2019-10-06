@@ -161,7 +161,6 @@ function depthSearch(values, startTime) {
 
     while(front.length > 0) {
         let node = front.pop()
-        console.log(front.length)
         seen.push(node);
 
         if(solved.valores.equals(node.valores)) { inspectResult(node, seen, 0); return true; }
@@ -204,21 +203,19 @@ function breadthSearch(values, startTime) {
 }
 
 function inspectResult(node, seen, startTime, totalNodes) {
-  drawResult(node, startTime, totalNodes);
-  reDrawBoard(node.valores);
+    drawResult(node, startTime, totalNodes);
+    reDrawBoard(node.valores);
 
-  while(true) {
-    console.log(node.valores);
-    if(node.pai == null) break;
-    else node = findFather(node, seen);
-  }
+    while(true) {
+        if(node.pai == null) break;
+        else node = findFather(node, seen);
+    }
 }
 
 function drawResult(node, startTime, totalNodes) {
     document.getElementById("resultPrice").innerHTML = `Custo(Nivel): ${checkDepth(node)}`;
     document.getElementById("resultNode").innerHTML = `Nós: ${totalNodes} + 1 (root)`;
     document.getElementById("resultTime").innerHTML = `Tempo:  ${((performance.now()-startTime)/1000).toFixed(4)} s`;
-
 }
 
 function checkDepth(node) {
