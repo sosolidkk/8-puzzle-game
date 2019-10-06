@@ -154,10 +154,9 @@ function criarEstados() {
                 no = new Estado(x, null, null, vet,x.nivel+1)
                 //console.log(no.valores)
                 nosGerados++
-                no.custo = no.nivel + verificarCustoGeral(vet)
+                no.custo = no.nivel+ verificarCustoGeral(vet)
                 if (visitado(no) == false) {
                     fronteira.push(no)
-                
                 }
             }
         }
