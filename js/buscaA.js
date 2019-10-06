@@ -114,7 +114,7 @@ function mostrarSolucao(no) {
         console.log(e.valores[6], e.valores[7], e.valores[8])
         mudarTabela(e)
     })*/
-    mudarTabela(fronteira[0]) 
+    mudarTabela(fronteira[0])
     fronteira = []
     visitados = []
 
@@ -137,7 +137,7 @@ function criarEstados() {
     let aux
     let no
     let indice
-   
+
     while (true) {
 
         x = fronteira[0]
@@ -154,10 +154,9 @@ function criarEstados() {
                 no = new Estado(x, null, null, vet,x.nivel+1)
                 //console.log(no.valores)
                 nosGerados++
-                no.custo = no.nivel + verificarCustoGeral(vet)
+                no.custo = no.nivel+ verificarCustoGeral(vet)
                 if (visitado(no) == false) {
                     fronteira.push(no)
-                
                 }
             }
         }
@@ -179,9 +178,9 @@ function criarEstados() {
         /*  console.log("no expandido:")
              console.log(e.valores[0], e.valores[1], e.valores[2])
              console.log(e.valores[3], e.valores[4], e.valores[5])
-             console.log(e.valores[6], e.valores[7], e.valores[8]) 
+             console.log(e.valores[6], e.valores[7], e.valores[8])
              */
-   
+
         if (verificarSolucao(e, solucao)) {
             mostrarSolucao(e)
             return
@@ -191,7 +190,7 @@ function criarEstados() {
             // }
 
         }
-    } 
+    }
 }
 
 function buscaAEstrela(valores) {
@@ -215,5 +214,3 @@ function buscaAEstrela(valores) {
     criarEstados()
 
 }
-
-

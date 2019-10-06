@@ -24,7 +24,7 @@ function expandirNos(estadoInicial)
                 newVet[i] = " "
                 let newNo = new Estado(estadoAtual, null, verificarCustoGeral(newVet), newVet)
                 nosGerados++
-
+                //console.log(newNo.valores)
                 if (visitado(newNo) == false)
                 {
                     fronteira.push(newNo)
@@ -32,7 +32,8 @@ function expandirNos(estadoInicial)
             }
         }
 
-        fronteira.shift()
+        if(fronteira.length>0){
+        fronteira.shift()}
         fronteira.sort((a, b) => {
             return a.custo - b.custo
         })
