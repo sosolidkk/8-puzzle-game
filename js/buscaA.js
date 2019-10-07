@@ -1,18 +1,15 @@
-const solucao = ["1", "2", "3", "4", "5", "6", "7", "8", " "]
-let fronteira = []
-let visitados = []
-let inicio = null
-let fim = null
-let nosGerados = 1
+const solucao = ["1", "2", "3", "4", "5", "6", "7", "8", " "];
+let fronteira = [];
+let visitados = [];
+let inicio = null;
+let fim = null;
+let nosGerados = 1;
 
 function verificarSolucao(no, sol) {
-    let s = 0
-    for (let i = 0; i < 9; i++) {
-        if (no.valores[i] == sol[i]) { s++ }
-    }
-    if (s == sol.length) {
-        return true
-    } else { return false }
+    let s = 0;
+    for (let i = 0; i < 9; i++) { if (no.valores[i] == sol[i]) { s++; } }
+    if (s == sol.length) { return true; }
+    else { return false; }
 }
 
 function change(id, espace) {
@@ -22,195 +19,112 @@ function change(id, espace) {
     else { arr = [+3, +1, -3, -1]; }
 
     for (i = 0; i < arr.length; i++) {
-        //console.log(tablePosID[tablePosID.length-1] + " + " + arr[i] + " = " + id[1])
         if (Number(espace) + Number(arr[i]) == Number(id)) { return true; }
     }
     return false;
-
 }
 
 function verificarCusto(no) {
-    if (no.pai != null) {
-        return 1 + verificarCusto(no.pai)
-    } else {
-        return 0
-    }
+    if (no.pai != null) { return 1 + verificarCusto(no.pai); }
+    else { return 0; }
 }
 
 function verificarCustoGeral(vet) {
-    let arr = []
-    let list = []
-    for (let i = 0; i < 3; i++) {
-        list.push(vet[i])
-    }
-    arr.push(list)
-    list = []
-    for (let i = 3; i < 6; i++) {
-        list.push(vet[i])
-    }
-    arr.push(list)
-    list = []
-    for (let i = 6; i < 9; i++) {
-        list.push(vet[i])
-    }
-    arr.push(list)
+    let arr = [], list = [];
 
+    for (let i = 0; i < 3; i++) { list.push(vet[i]) }
+    arr.push(list); list = [];
 
-    let objetivo = [[1, 2, 3], [4, 5, 6], [7, 8, 0]]
-    let p = []
+    for (let i = 3; i < 6; i++) { list.push(vet[i]) }
+    arr.push(list); list = [];
+
+    for (let i = 6; i < 9; i++) { list.push(vet[i]); }
+    arr.push(list);
+
+    let objetivo = [[1, 2, 3], [4, 5, 6], [7, 8, 0]];
+    let p = [];
 
     verificaPos = (valor) => {
-        let v = []
+        let v = [];
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
                 if (Number(arr[i][j]) == valor) {
-                    v.push(Number(i))
-                    v.push(Number(j))
-                    return v
+                    v.push(Number(i));
+                    v.push(Number(j));
+                    return v;
                 }
             }
         }
     }
-    let soma = 0
+    let soma = 0;
     for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
-            if (objetivo[i][j] == 0) {
-                continue
-            }
-            if (Number(objetivo[i][j]) == Number(arr[i][j])) {
-                soma += 0
-            } else {
-                p = verificaPos(Number(objetivo[i][j]))
-
-                soma += Math.abs(p[0] - i) + Math.abs(p[1] - j)
-
+            if (objetivo[i][j] == 0) { continue; }
+            if (Number(objetivo[i][j]) == Number(arr[i][j])) { soma += 0; }
+            else {
+                p = verificaPos(Number(objetivo[i][j]));
+                soma += Math.abs(p[0] - i) + Math.abs(p[1] - j);
             }
         }
     }
-
-    return soma
+    return soma;
 }
-
-
 
 function mudarTabela(no) {
     for (let i = 0; i < 9; i++) {
-        document.getElementById(tableItems[i]).firstChild.data = no.valores[i]
+        document.getElementById(tableItems[i]).firstChild.data = no.valores[i];
     }
-
 }
 
 function mostrarSolucao(no) {
-    fim = new Date()
-    console.log("Solucao encontrada")
-    console.log(no.valores)
-    console.log("tempo:", fim.getTime() - inicio.getTime())
-    console.log("n nos na fronteira:", fronteira.length)
-    console.log("nos gerados:", nosGerados)
-    /* visitados.forEach(e => {
-        console.log("no expandido:")
-        console.log(e.valores[0], e.valores[1], e.valores[2])
-        console.log(e.valores[3], e.valores[4], e.valores[5])
-        console.log(e.valores[6], e.valores[7], e.valores[8])
-        mudarTabela(e)
-    })*/
-    mudarTabela(fronteira[0])
-    fronteira = []
-    visitados = []
-
+    drawResult(fronteira[0], inicio, nosGerados);
 }
 
 
 function visitado(no) {
     for (let i = 0; i < visitados.length; i++) {
-        if (verificarSolucao(no, visitados[i].valores)) {
-            return true
-        }
+        if (verificarSolucao(no, visitados[i].valores)) { return true; }
     }
-
-    return false
+    return false;
 }
 
 function criarEstados() {
-    let x
-    let vet = []
-    let aux
-    let no
-    let indice
+    let x, vet = [], aux, no, indice;
 
     while (true) {
-
         x = fronteira[0]
-
         visitados.push(x)
 
-        indice = x.valores.indexOf(" ") //indice da posicao vazia
+        indice = x.valores.indexOf(" ")
         for (let i = 0; i < 9; i++) {
-            vet = x.valores.slice()
+            vet = x.valores.slice();
             if (change(i, indice)) {
-                aux = vet[i]
-                vet[i] = vet[indice]
-                vet[indice] = aux
-                no = new Estado(x, null, null, vet,x.nivel+1)
-                //console.log(no.valores)
-                nosGerados++
-                no.custo = no.nivel+ verificarCustoGeral(vet)
-                if (visitado(no) == false) {
-                    fronteira.push(no)
-                }
+                aux = vet[i];
+                vet[i] = vet[indice];
+                vet[indice] = aux;
+
+                no = new Estado(x, null, null, vet, x.nivel+1);
+                nosGerados++;
+
+                no.custo = no.nivel+ verificarCustoGeral(vet);
+                if (visitado(no) == false) { fronteira.push(no); }
             }
         }
+        fronteira.shift();
 
+        fronteira.sort((a, b) => { return a.custo - b.custo; })
+        let e = fronteira[0];
 
-        fronteira.shift()
-
-        fronteira.sort((a, b) => {
-            return a.custo - b.custo
-        })
-
-
-         /* fronteira.forEach(e=>{
-        console.log(e.valores,e.custo)
-    })     */
-
-
-        let e = fronteira[0]
-        /*  console.log("no expandido:")
-             console.log(e.valores[0], e.valores[1], e.valores[2])
-             console.log(e.valores[3], e.valores[4], e.valores[5])
-             console.log(e.valores[6], e.valores[7], e.valores[8])
-             */
-
-        if (verificarSolucao(e, solucao)) {
-            mostrarSolucao(e)
-            return
-            //} else {
-            //   criarEstados(e, e.valores)
-
-            // }
-
-        }
+        if (verificarSolucao(e, solucao)) { mostrarSolucao(e); return; }
     }
 }
 
 function buscaAEstrela(valores) {
-    fronteira = []
-    visitados = []
-    inicio = null
-    fim = null
-    nosGerados = 1
-    inicio = new Date()
-    let no = new Estado(null, [], 0, valores,0) //estado inicial
+    fronteira = [], visitados = [], nosGerados = 1
+    inicio = performance.now(), fim = null;
+    let no = new Estado(null, [], 0, valores,0);
 
-    fronteira.push(no)
-    if (verificarSolucao(no, solucao)) {
-        mostrarSolucao(no)
-        return
-    }
-    console.log("estado inicial:")
-    console.log(no.valores[0], no.valores[1], no.valores[2])
-    console.log(no.valores[3], no.valores[4], no.valores[5])
-    console.log(no.valores[6], no.valores[7], no.valores[8])
-    criarEstados()
-
+    fronteira.push(no);
+    if (verificarSolucao(no, solucao)) { mostrarSolucao(no); return; }
+    criarEstados();
 }

@@ -21,10 +21,8 @@ Array.prototype.equals = function (array) {
     return true;
 }
 
-// Hide method from for-in loops
 Object.defineProperty(Array.prototype, "equals", {enumerable: false});
 
-// Suffle array
 function shuffle(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -219,11 +217,8 @@ function drawResult(node, startTime, totalNodes) {
 }
 
 function checkDepth(node) {
-    if (node.pai != null) {
-        return 1 + checkDepth(node.pai)
-    } else {
-        return 0
-    }
+    if (node.pai != null) { return 1 + checkDepth(node.pai); }
+    else { return 0; }
 }
 
 function findFather(node, seen) {
