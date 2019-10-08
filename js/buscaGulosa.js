@@ -2,7 +2,7 @@ function expandirNos(estadoInicial) {
     let estadoAtual = estadoInicial
     while (true) {
         if (verificarSolucao(estadoAtual, solucao)) {
-            mostrarSolucao(estadoAtual); return;
+            mostrarSolucao(estadoAtual, estadoInicial); return;
         }
         let valores = estadoAtual.valores;
         let vazioIdx = valores.indexOf(" ");
@@ -13,7 +13,8 @@ function expandirNos(estadoInicial) {
                 let newVet = valores.slice();
                 newVet[vazioIdx] = newVet[i];
                 newVet[i] = " ";
-                let newNo = new Estado(estadoAtual, null, verificarCustoGeral(newVet), newVet, estadoAtual.nivel+1);
+                let newNo = new Estado(estadoAtual, [], verificarCustoGeral(newVet), newVet, estadoAtual.nivel+1);
+                estadoAtual.filhos.push(newNo);
                 nosGerados++;
 
                 if (visitado(newNo) == false) { fronteira.push(newNo); }
@@ -31,7 +32,7 @@ function buscaGulosa(vet) {
     let no = new Estado(null, [], 0, vet, 0);
     fronteira = [];
     visitados = [];
-    nosGerados = 0;
+    nosGerados = 1;
 
     expandirNos(no);
 }

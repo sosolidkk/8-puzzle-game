@@ -76,8 +76,10 @@ function mudarTabela(no) {
     }
 }
 
-function mostrarSolucao(no) {
+function mostrarSolucao(no, inicial) {
     drawResult(fronteira[0], inicio, nosGerados);
+    reDrawBoard(no.valores);
+    tree(drawTree(inicial));
 }
 
 
@@ -88,7 +90,7 @@ function visitado(no) {
     return false;
 }
 
-function criarEstados() {
+function criarEstados(inicial) {
     let x, vet = [], aux, no, indice;
 
     while (true) {
@@ -103,7 +105,8 @@ function criarEstados() {
                 vet[i] = vet[indice];
                 vet[indice] = aux;
 
-                no = new Estado(x, null, null, vet, x.nivel+1);
+                no = new Estado(x, [], 0, vet, x.nivel+1);
+                x.filhos.push(no);
                 nosGerados++;
 
                 no.custo = no.nivel+ verificarCustoGeral(vet);
@@ -115,16 +118,16 @@ function criarEstados() {
         fronteira.sort((a, b) => { return a.custo - b.custo; })
         let e = fronteira[0];
 
-        if (verificarSolucao(e, solucao)) { mostrarSolucao(e); return; }
+        if (verificarSolucao(e, solucao)) { mostrarSolucao(e, inicial); return; }
     }
 }
 
 function buscaAEstrela(valores) {
     fronteira = [], visitados = [], nosGerados = 1
     inicio = performance.now(), fim = null;
-    let no = new Estado(null, [], 0, valores,0);
+    let no = new Estado(null, [], 0, valores, 0);
 
     fronteira.push(no);
-    if (verificarSolucao(no, solucao)) { mostrarSolucao(no); return; }
-    criarEstados();
+    if (verificarSolucao(no, solucao)) { mostrarSolucao(no, no); return; }
+    criarEstados(no);
 }
