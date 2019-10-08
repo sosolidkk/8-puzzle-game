@@ -3,12 +3,28 @@
 <head>
     <title>Jogo dos 8</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <style type="text/css"> #container { max-width: 400px; height: 400px; margin: auto; } </style>
+    <style type="text/css"> #container { max-width: 400px; height: 400px; margin: auto; }
+        rect {
+             fill: white;
+             width: 100px;
+             height: 40px;
+             stroke: blue;
+             stroke-width: 2;
+          }
+          path {
+             fill: none;
+             stroke: blue;
+             stroke-width: 2;
+          }
+          text {
+             dominant-baseline: middle;
+             text-anchor: middle;
+          }
+    </style>
 </head>
 <body>
     <center>
         <h1><span style="color:#2864A7;">Jogo dos 8</span><br /></h1>
-        <h4><span style="color:#2864A7;">8 puzzle game</span><br /></h4>
         <div id="puzzle" class="container">
             <button id="r0" class="btn btn-primary" onclick="pushed(this.id)"
                 style="width: 75px; height: 75px; font-size: 30px; margin: 5px;">1</button>
@@ -30,14 +46,14 @@
                 style="width: 75px; height: 75px; font-size: 30px; margin: 5px;"> </button>
         </div>
         <div class="info-panel" style="width:250px; left:0; bottom:0; overflow-y:auto; border:1px solid #2864A7;">
-            <div class="menu-panel" style="background: #2864A7; color: #fff; font-weight: bold; text-align: center; line-height: 200%;">Entrada (Game input)</div>
+            <div class="menu-panel" style="background: #2864A7; color: #fff; font-weight: bold; text-align: center; line-height: 200%;">Entrada</div>
             <div class="menu-item" style="margin-top: 10px; margin-bottom: 10px;">
                 <button id="customInput" style="border:1px solid #2864A7;" title="Input">Entrada</button>
                 <button id="randomizeBoard" style="border:1px solid #2864A7;" title="Random" disabled>Randomizar</button>
             </div>
         </div>
         <div class="info-panel" style="width:250px; left:0; bottom:0; overflow-y:auto; border:1px solid #2864A7;">
-            <div class="menu-panel" style="background: #2864A7; color: #fff; font-weight: bold; text-align: center; line-height: 200%;">Algoritmos (Algorithms)</div>
+            <div class="menu-panel" style="background: #2864A7; color: #fff; font-weight: bold; text-align: center; line-height: 200%;">Algoritmos</div>
             <div class="menu-item" style="margin-top: 10px; margin-bottom: 10px;">
                 <select id="algoritmos" class="form-control" title="Select" style="width: 100px; height: 40; margin: 10px; border:1px solid #2864A7;">
                     <option value="selecionar">Selecione</option>
@@ -50,7 +66,7 @@
             </div>
         </div>
         <div class="info-panel" style="width:250px; left:0; bottom:0; overflow-y:auto; border:1px solid #2864A7;">
-            <div class="menu-panel" style="background: #2864A7; color: #fff; font-weight: bold; text-align: center; line-height: 200%;">Resultado (Game result)</div>
+            <div class="menu-panel" style="background: #2864A7; color: #fff; font-weight: bold; text-align: center; line-height: 200%;">Resultado</div>
             <div class="menu-item" style="margin-top: 10px; margin-bottom: 10px;">
                 <label id="resultPrice"></label><br>
                 <label id="resultNode"></label><br>
@@ -58,13 +74,15 @@
             </div>
         </div>
         <h4>
-            <span style="color: #000;">Feito por (made by):</span>
+            <span style="color: #000;">Feito por:</span>
             <br><span style="color: #2864A7;">João Marcos</span>
             <br><span style="color: #2864A7;">João Pedro</span>
             <br><span style="color: #2864A7;">Lucas Rodrigues</span>
         </h4>
+        <div class="treeDrawer"></div>
     </center>
     <script type="text/javascript" scr="js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"> </script>
     <script type="text/javascript" src="js/puzzle.js"></script>
     <script type="text/javascript" src="js/buscaA.js"></script>
     <script type="text/javascript" src="js/search.js"></script>
